@@ -13,17 +13,6 @@ Google Analytics
 
 ### example
 
-  import (
-  	"fmt"
-  	"log"
-  	"math/rand"
-  	"os"
-  	"strconv"
-  	"time"
-  
-  	"github.com/DapperDodo/batchposter"
-  )
-  
   func main() {
   
   	errorlogger := log.New(os.Stderr, "[GA BATCH ERROR] ", log.Llongfile)
