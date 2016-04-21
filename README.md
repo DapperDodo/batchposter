@@ -27,7 +27,7 @@ Google Analytics
     	for {
     		uuid := strconv.Itoa(1000000 + rand.Intn(8999999))
     
-    		payload := "v=1&tid=UA-76659026-1&cid=" + uuid + "&t=event&ec=accounts&ea=create&aip=1&ds=api&cd1=TestPartner&cd2=TestGame&uid=" + uuid
+    		payload := "v=1&tid=UA-XXXXXXX-1&cid=" + uuid + "&t=event&ec=accounts&ea=create&aip=1&ds=api&uid=" + uuid
     		fmt.Println(payload)
     		err := ga.Post(payload)
     		if err != nil {
