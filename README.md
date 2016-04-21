@@ -3,7 +3,7 @@
 Buffer POST requests in batches. Flush when buffer is full or when N seconds have elapsed. Threadsafe.
 The server/endpoint must support multiline POST requests.
 
-### usecase
+### use case
 
 Google Analytics, but useful for any endpoint that supports multiline POST
 
