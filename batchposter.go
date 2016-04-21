@@ -43,6 +43,15 @@ func New(url string, maxbatch int, maxtime time.Duration, l *log.Logger) *BatchP
 
 func (b *BatchPoster) Post(payload string) error {
 
+	if b.full() {
+
+		// something is wrong, buffer should never be full. Try flushing and ignore errors.
+		go b.flush()
+
+		b.log.Println(ErrBufferFull)
+		return ErrBufferFull
+	}
+
 	err := b.add(payload)
 	if err != nil {
 		return err
@@ -72,15 +81,10 @@ func (b *BatchPoster) full() bool {
 
 func (b *BatchPoster) add(payload string) error {
 
-	if b.full() {
-		_ = b.flush()
-		b.log.Println(ErrBufferFull)
-		return ErrBufferFull
-	}
-
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
+	// add to buffer
 	b.buffer[b.idx] = payload
 	b.idx++
 
@@ -92,10 +96,12 @@ func (b *BatchPoster) flush() error {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
+	// bail on nothing to post
 	if b.idx == 0 {
 		return nil
 	}
 
+	// post batch
 	batch := strings.Join(b.buffer, "\n")
 	_, err := http.Post(b.url, "", strings.NewReader(batch))
 	if err != nil {
