@@ -5,7 +5,7 @@ The server/endpoint must support multiline POST requests.
 
 ### usecase
 
-Google Analytics
+Google Analytics, but useful for any endpoint that supports multiline POST
 
 ### installation
 
