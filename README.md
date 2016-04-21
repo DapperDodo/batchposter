@@ -19,10 +19,10 @@ Google Analytics, but useful for any endpoint that supports multiline POST
     	
     	// "http://www.google-analytics.com/batch" 	: the url to POST to
     	// 20										: the maximum batch size (`flush immediately when 20 POSTS are buffered`)
-    	// time.Second*5 							: the maximum time between flushes (`at least flush every N seconds`)
+    	// time.Second*30							: the maximum time between flushes (`at least flush every N seconds`)
     	// errorlogger 								: logger where errors are reported to
   
-    	ga := batchposter.New("http://www.google-analytics.com/batch", 20, time.Second*5, errorlogger)
+    	ga := batchposter.New("http://www.google-analytics.com/batch", 20, time.Second*30, errorlogger)
     
     	for {
     		uuid := strconv.Itoa(1000000 + rand.Intn(8999999))
